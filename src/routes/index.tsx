@@ -1,10 +1,10 @@
-import MainLayout from "@/components/layout/MainLayout";
-import { Task } from "@/features";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import MainLayout from '@/components/layout/MainLayout';
+import { Task } from '@/features';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <MainLayout />,
     children: [
       {
@@ -12,11 +12,11 @@ export const router = createBrowserRouter([
         element: <Navigate to="/dashboard" replace />,
       },
       {
-        path: "dashboard",
+        path: 'dashboard',
         element: <Task.Dashboard />,
       },
       {
-        path: "task",
+        path: 'task',
         element: <Task.List />,
       },
     ],

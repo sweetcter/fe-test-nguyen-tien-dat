@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,scss}\"",
     "preview": "vite preview"
-
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.2",
@@ -30,6 +29,8 @@
     "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.5.0",
     "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",

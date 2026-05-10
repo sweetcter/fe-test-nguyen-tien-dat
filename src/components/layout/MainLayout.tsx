@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import SideBar from "./sidebar/SideBar";
-import Header from "./header/Header";
-import Footer from "./footer/Footer";
+import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Header from './header/Header';
+import SideBar from './sidebar/SideBar';
 
 const MainLayout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -15,7 +14,7 @@ const MainLayout = () => {
         <main className="flex-grow overflow-auto bg-muted/30 p-6">
           <Outlet />
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );

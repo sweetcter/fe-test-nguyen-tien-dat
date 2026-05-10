@@ -1,1 +1,1 @@
-export * as Task from "./tasks";
+export * as Task from './tasks';

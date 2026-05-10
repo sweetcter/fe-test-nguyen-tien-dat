@@ -1,37 +1,15 @@
-import { useEffect, useState } from "react";
+import { useTheme } from '@/core/contexts/ThemeContext';
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState(() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme") || "light";
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  });
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
       onClick={toggleTheme}
-      className="fixed right-4 top-4 z-50 rounded-full bg-primary p-2 text-primary-foreground shadow-lg transition-all hover:opacity-90"
+      className="rounded-full bg-primary p-2 text-primary-foreground shadow-lg transition-all hover:opacity-90"
       aria-label="Toggle theme"
     >
-      {theme === "light" ? (
+      {theme === 'light' ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"

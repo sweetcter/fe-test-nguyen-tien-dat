@@ -1,5 +1,7 @@
-export type TaskStatus = "todo" | "in_progress" | "done";
-export type TaskPriority = "low" | "medium" | "high";
+import type { Dayjs } from 'dayjs';
+
+export type TaskStatus = 'todo' | 'in_progress' | 'done';
+export type TaskPriority = 'low' | 'medium' | 'high';
 
 export interface Task {
   id: string;
@@ -12,3 +14,10 @@ export interface Task {
   createdAt: string;
   tags?: string[];
 }
+
+export type TaskFilter = {
+  search: string;
+  status: TaskStatus[];
+  priority: TaskPriority;
+  dateRange: [Dayjs, Dayjs] | null;
+};
