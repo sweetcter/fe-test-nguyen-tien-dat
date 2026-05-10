@@ -62,6 +62,7 @@ export const selectTasks = createSelector(
         }
         return true;
       })
+      .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
       .slice(start, start + pageSize);
   }
 );

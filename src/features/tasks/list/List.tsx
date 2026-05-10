@@ -1,11 +1,28 @@
-import Paginate from '@/components/shared/table/Pagination';
-import Table from '@/components/shared/table/Table';
-import TableFilter from '@/components/shared/table/TableFilter';
+import Paginate from '@/components/table/Pagination';
+import Table from '@/components/table/Table';
+import TableFilter from '@/components/table/TableFilter';
+import TaskFormModal from '@/features/tasks/task-form/TaskFormModal';
 import type { Task } from '@/types/task';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import useTaskList from './useTaskList';
 
 const List = () => {
-  const { columns, filterFields, tasks, totalTask, selectedIds, clearSelection } = useTaskList();
+  const {
+    columns,
+    filterFields,
+    tasks,
+    isLoading,
+    totalTask,
+
+    selectedIds,
+    clearSelection,
+    isFormOpen,
+    editingTask,
+    openAddModal,
+    closeModal,
+    handleSaveTask,
+  } = useTaskList();
 
   return (
     <div className="flex h-full flex-col gap-3 overflow-hidden">
@@ -31,11 +48,28 @@ const List = () => {
               </button>
             )}
             <span className="text-sm text-muted-foreground">Tổng: {totalTask} task</span>
+            <Button type="primary" icon={<PlusOutlined />} onClick={openAddModal}>
+              Thêm mới
+            </Button>
           </div>
         </div>
-        <Table<Task> data={tasks} columns={columns} scroll={{ y: 'calc(100vh - 330px)' }} />
+
+        <Table<Task>
+          data={tasks}
+          columns={columns}
+          loading={isLoading}
+          scroll={{ y: 'calc(100vh - 330px)' }}
+        />
+
         <Paginate total={totalTask} />
       </div>
+
+      <TaskFormModal
+        open={isFormOpen}
+        editingTask={editingTask}
+        onClose={closeModal}
+        onSave={handleSaveTask}
+      />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import {
   selectPaginatedTasks,
   selectTasks,
 } from '@/store/selectors/tasksSelector';
-import { resetFilters, setFilter, setPage, setPageSize } from '@/store/slices/tasksSlice';
+import { resetFilters, setFilter, setLoading, setPage, setPageSize } from '@/store/slices/tasksSlice';
 import type { TaskFilter, TaskPriority, TaskStatus } from '@/types/task';
 import type { FilterValues } from './_table.type';
 import { useEffect, useCallback, useMemo } from 'react';
@@ -17,7 +17,15 @@ const useTable = () => {
   const paginatedTasks = useTypeSelector(selectPaginatedTasks);
   const tasks = useTypeSelector(selectTasks);
   const filters = useTypeSelector((state) => state.tasks.filters);
+  const isLoading = useTypeSelector((state) => state.tasks.isLoading);
   const { currentPage, pageSize } = useTypeSelector((state) => state.tasks.pagination);
+
+  const triggerLoading = useCallback(() => {
+    dispatch(setLoading(true));
+    setTimeout(() => {
+      dispatch(setLoading(false));
+    }, 500);
+  }, [dispatch]);
 
   const syncToUrl = useCallback((currentFilters: TaskFilter, page: number, size: number) => {
     const params = new URLSearchParams();
@@ -37,6 +45,7 @@ const useTable = () => {
   }, []);
 
   const handleFilterChange = (values: FilterValues<TaskFilter>) => {
+    triggerLoading();
     const newFilters = { ...filters, ...values };
     dispatch(setFilter(values));
     dispatch(setPage(1));
@@ -44,6 +53,7 @@ const useTable = () => {
   };
 
   const handlePageChange = (page: number, size?: number) => {
+    triggerLoading();
     const finalSize = size ?? pageSize;
     if (size && size !== pageSize) {
       dispatch(setPageSize(size));
@@ -55,6 +65,7 @@ const useTable = () => {
   };
 
   const reset = () => {
+    triggerLoading();
     dispatch(resetFilters());
     dispatch(setPage(1));
     dispatch(setPageSize(10));
@@ -71,6 +82,7 @@ const useTable = () => {
   };
 
   useEffect(() => {
+    triggerLoading();
     const params = new URLSearchParams(window.location.search);
     const urlFilters: Partial<TaskFilter> = {};
 
@@ -117,7 +129,7 @@ const useTable = () => {
 
   return {
     tasks,
-
+    isLoading,
     filteredTasks,
     paginatedTasks,
 
@@ -128,5 +140,6 @@ const useTable = () => {
     handlePageChange,
   };
 };
+
 
 export default useTable;

@@ -21,3 +21,7 @@ export type TaskFilter = {
   priority: TaskPriority;
   dateRange: [Dayjs, Dayjs] | null;
 };
+
+export type TaskFormValues = Omit<Task, 'id' | 'createdAt' | 'dueDate'> & {
+  dueDate?: Dayjs;
+};

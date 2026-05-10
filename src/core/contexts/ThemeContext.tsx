@@ -25,7 +25,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   const toggleTheme = useCallback(() => {
+    const root = window.document.documentElement;
+    root.classList.add('disable-transitions');
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        root.classList.remove('disable-transitions');
+      });
+    });
   }, []);
 
   useEffect(() => {

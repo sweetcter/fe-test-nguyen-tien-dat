@@ -10,6 +10,7 @@ type TasksState = {
     pageSize: number;
   };
   selectedIds: string[];
+  isLoading: boolean;
 };
 
 const initialState: TasksState = {
@@ -25,7 +26,9 @@ const initialState: TasksState = {
     pageSize: 10,
   },
   selectedIds: [],
+  isLoading: false,
 };
+
 
 const tasksSlice = createSlice({
   name: 'tasks',
@@ -117,8 +120,12 @@ const tasksSlice = createSlice({
       state.pagination.pageSize = action.payload;
       state.pagination.currentPage = 1;
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
+
 
 export const {
   addTask,
@@ -133,7 +140,9 @@ export const {
   resetFilters,
   setPage,
   setPageSize,
+  setLoading,
 } = tasksSlice.actions;
+
 
 const tasksReducer = tasksSlice.reducer;
 export default tasksReducer;

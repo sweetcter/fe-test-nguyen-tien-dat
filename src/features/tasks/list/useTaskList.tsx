@@ -1,16 +1,22 @@
 import BadgeLabel from '@/components/shared/BadgeLabel';
 import Dialog from '@/components/shared/Dialog';
-import type { FilterField } from '@/components/shared/table/_table.type';
-import { RowCheckbox, SelectAllCheckbox } from '@/components/shared/table/RowSelectionCheckbox';
-import useTable from '@/components/shared/table/useTable';
-import { PRIORITY_CONFIG, STATUS_CONFIG } from '@/core/constants/tasks.constant';
+import { RowCheckbox, SelectAllCheckbox } from '@/components/table/RowSelectionCheckbox';
+import type { FilterField } from '@/components/table/_table.type';
+import useTable from '@/components/table/useTable';
+import { PRIORITY_CONFIG, STATUS_CONFIG } from '@/core/constants/tasks.constant.tsx';
 import { useAppDispatch, useTypeSelector } from '@/store';
 import { selectSelectedIds } from '@/store/selectors/tasksSelector';
-import { clearSelection, deleteTask, deleteManyTasks, updateTaskStatus } from '@/store/slices/tasksSlice';
+import {
+  clearSelection,
+  deleteManyTasks,
+  deleteTask,
+  updateTaskStatus,
+} from '@/store/slices/tasksSlice';
 import type { Task, TaskFilter, TaskPriority, TaskStatus } from '@/types/task';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Select, Tooltip } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { useTaskAction } from './useTaskAction';
 
 const useTaskList = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +24,8 @@ const useTaskList = () => {
   const totalTask = useTypeSelector((state) => state.tasks.items.length);
   const selectedIds = useTypeSelector(selectSelectedIds);
 
-  const { tasks, paginatedTasks } = useTable();
+  const { tasks, paginatedTasks, isLoading } = useTable();
+  const taskAction = useTaskAction();
 
   const pageIds = tasks.map((t) => t.id);
 
@@ -112,7 +119,7 @@ const useTaskList = () => {
     },
     {
       key: 'action',
-      width: 120,
+      width: 100,
       fixed: 'right',
       title: () =>
         selectedIds.length > 0 ? (
@@ -126,8 +133,7 @@ const useTaskList = () => {
                   icon={<DeleteOutlined />}
                   className="flex items-center gap-1 font-medium"
                 >
-                  Xóa
-                  {selectedIds.length} task
+                  Xóa {selectedIds.length} task
                 </Button>
               </Tooltip>
             }
@@ -154,27 +160,37 @@ const useTaskList = () => {
           <span className="text-muted-foreground">Thao tác</span>
         ),
       render: (_val, record) => (
-        <Dialog
-          openButton={
-            <Tooltip title="Xóa task">
-              <Button type="text" danger size="small" icon={<DeleteOutlined />} />
-            </Tooltip>
-          }
-          title={
-            <div className="flex items-center gap-2">
-              <DeleteOutlined style={{ color: '#ff4d4f' }} />
-              Xác nhận xóa
-            </div>
-          }
-          okButton="Xóa"
-          okButtonProps={{ danger: true }}
-          onConfirm={() => dispatch(deleteTask(record.id))}
-          closeAfterConfirm
-          width={420}
-        >
-          <p className="text-base">Bạn có chắc chắn muốn xóa task này không?</p>
-          <p className="mt-1 text-sm text-gray-400">Hành động này không thể hoàn tác.</p>
-        </Dialog>
+        <div className="flex items-center gap-1">
+          <Tooltip title="Chỉnh sửa">
+            <Button
+              type="text"
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => taskAction.openEditModal(record)}
+            />
+          </Tooltip>
+          <Dialog
+            openButton={
+              <Tooltip title="Xóa task">
+                <Button type="text" danger size="small" icon={<DeleteOutlined />} />
+              </Tooltip>
+            }
+            title={
+              <div className="flex items-center gap-2">
+                <DeleteOutlined style={{ color: '#ff4d4f' }} />
+                Xác nhận xóa
+              </div>
+            }
+            okButton="Xóa"
+            okButtonProps={{ danger: true }}
+            onConfirm={() => dispatch(deleteTask(record.id))}
+            closeAfterConfirm
+            width={420}
+          >
+            <p className="text-base">Bạn có chắc chắn muốn xóa task này không?</p>
+            <p className="mt-1 text-sm text-gray-400">Hành động này không thể hoàn tác.</p>
+          </Dialog>
+        </div>
       ),
     },
   ];
@@ -217,11 +233,13 @@ const useTaskList = () => {
   return {
     columns,
     tasks,
+    isLoading,
     paginatedTasks,
     totalTask,
     filterFields,
     selectedIds,
     clearSelection: () => dispatch(clearSelection()),
+    ...taskAction,
   };
 };
 
