@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Task Management Dashboard</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="task-management-dashboard">Task Management Dashboard</h1>
+<p>Một ứng dụng quản lý công việc toàn diện, được thiết kế với giao diện hiện đại, tối ưu trải nghiệm người dùng (UX) và hỗ trợ đầy đủ các tính năng cần thiết cho việc theo dõi tiến độ công việc.</p>
+<h2 id="-tính-năng-nổi-bật">🚀 Tính Năng Nổi Bật</h2>
+<h3 id="1-dashboard-thống-kê">1. Dashboard Thống Kê</h3>
+<ul>
+<li><strong>Tổng quan nhanh</strong>: Hiển thị tổng số lượng task và phân loại theo trạng thái (Cần làm, Đang làm, Hoàn thành).</li>
+<li><strong>Trực quan hóa</strong>: Biểu đồ/Thanh tiến độ (Progress bar) thể hiện tỷ lệ hoàn thành công việc.</li>
+<li><strong>Truy cập nhanh</strong>: Hiển thị danh sách 5 công việc được tạo gần đây nhất.</li>
+</ul>
+<h3 id="2-quản-lý-task-toàn-diện-crud">2. Quản Lý Task Toàn Diện (CRUD)</h3>
+<ul>
+<li><strong>Thêm/Sửa Task</strong>: Modal form thân thiện, tự động điền dữ liệu khi chỉnh sửa, validate dữ liệu chặt chẽ.</li>
+<li><strong>Xóa Task</strong>: Hỗ trợ xóa đơn lẻ và xóa hàng loạt (Bulk delete) với hộp thoại xác nhận an toàn.</li>
+<li><strong>Cập nhật nhanh</strong>: Thay đổi trạng thái task trực tiếp ngay trên bảng (Inline edit) mà không cần mở form.</li>
+</ul>
+<h3 id="3-tìm-kiếm--lọc-nâng-cao">3. Tìm Kiếm &amp; Lọc Nâng Cao</h3>
+<ul>
+<li>Tìm kiếm theo tiêu đề công việc.</li>
+<li>Lọc theo nhiều tiêu chí: Trạng thái, Độ ưu tiên, Khoảng thời gian (Hạn chót).</li>
+<li>Trạng thái bộ lọc và phân trang được đồng bộ hóa với URL, cho phép chia sẻ link hoặc tải lại trang mà không mất kết quả đang xem.</li>
+<li>Dữ liệu luôn được sắp xếp thông minh (Task mới nhất ưu tiên hiển thị trước).</li>
+</ul>
+<h3 id="4-giao-diện-hiện-đại--tối-ưu-ux">4. Giao Diện Hiện Đại &amp; Tối Ưu UX</h3>
+<ul>
+<li><strong>Chế độ Sáng/Tối (Dark/Light Mode)</strong>: Chuyển đổi mượt mà, đồng bộ hoàn hảo giữa Tailwind CSS và các component của Ant Design.</li>
+<li><strong>Responsive</strong>: Giao diện được tối ưu hiển thị tốt trên cả màn hình Desktop và Tablet.</li>
+<li><strong>Fake Loading</strong>: Hiệu ứng chuyển cảnh mượt mà khi chuyển trang hoặc thay đổi bộ lọc, mang lại cảm giác ứng dụng chuyên nghiệp.</li>
+</ul>
+<h3 id="5-lưu-trữ-dữ-liệu-caching">5. Lưu Trữ Dữ Liệu (Caching)</h3>
+<ul>
+<li>Sử dụng <code>redux-persist</code> để lưu trữ dữ liệu cục bộ. Các task, bộ lọc, và vị trí trang của bạn sẽ được giữ nguyên ngay cả khi bạn tải lại ứng dụng.</li>
+</ul>
+<hr>
+<h2 id="-demo--screenshots">📸 Demo &amp; Screenshots</h2>
+<blockquote>
+<p>Hình ảnh và GIF demo sẽ được cập nhật tại đây.</p>
+</blockquote>
+<h3 id="dashboard">Dashboard</h3>
+<p><img src="file:///e:\Workspace\interview\app\imgs\dashboard.png" alt="Dashboard Demo"></p>
+<h3 id="task-list--filter">Task List &amp; Filter</h3>
+<p><img src="file:///e:\Workspace\interview\app\imgs\task-list.png" alt="Task List Demo">
+<img src="file:///e:\Workspace\interview\app\imgs\task-list.png" alt="Task List Filter"></p>
+<h3 id="thêm-mới--chỉnh-sửa-task">Thêm Mới / Chỉnh Sửa Task</h3>
+<p><img src="file:///e:\Workspace\interview\app\imgs\task-form.png" alt="Task Form create">
+<img src="file:///e:\Workspace\interview\app\imgs\task-form.png" alt="Task Form Edit"></p>
+<h3 id="dark-mode">Dark Mode</h3>
+<p><img src="file:///e:\Workspace\interview\app\imgs\dark-mode.png" alt="Dark Mode Demo">
+<img src="file:///e:\Workspace\interview\app\imgs\dark-mode.png" alt="Light Mode Demo"></p>
+<hr>
+<h2 id="-công-nghệ-sử-dụng">🛠 Công Nghệ Sử Dụng</h2>
+<ul>
+<li><strong>Core</strong>: React 18, TypeScript, Vite</li>
+<li><strong>UI Framework/Styling</strong>: Tailwind CSS, Ant Design (AntD)</li>
+<li><strong>State Management</strong>: Redux Toolkit, Redux Persist</li>
+<li><strong>Routing</strong>: React Router DOM (xử lý routing trong react)</li>
+<li><strong>Khác</strong>: Day.js (xử lý thời gian)</li>
+</ul>
+<hr>
+<h2 id="-cài-đặt--chạy-ứng-dụng">📦 Cài Đặt &amp; Chạy Ứng Dụng</h2>
+<p>Ứng dụng sử dụng <strong>Yarn</strong> (PnP) làm trình quản lý gói. Đảm bảo bạn đã cài đặt Node.js và Yarn trên máy.</p>
+<h3 id="1-clone-repository">1. Clone repository</h3>
+<pre><code class="language-bash">git <span class="hljs-built_in">clone</span> &lt;repository-url&gt;
+<span class="hljs-built_in">cd</span> app
+</code></pre>
+<h3 id="2-cài-đặt-dependencies">2. Cài đặt dependencies</h3>
+<pre><code class="language-bash">yarn install
+</code></pre>
+<h3 id="3-chạy-môi-trường-phát-triển-development">3. Chạy môi trường phát triển (Development)</h3>
+<pre><code class="language-bash">yarn dev
+</code></pre>
+<p>Ứng dụng sẽ chạy tại địa chỉ: <code>http://localhost:5173</code> (hoặc port khác tùy Vite hiển thị).</p>
+<h3 id="4-build-cho-production-tùy-chọn">4. Build cho Production (Tùy chọn)</h3>
+<pre><code class="language-bash">yarn build
+yarn preview
+</code></pre>
+
+            
+            
+        </body>
+        </html>

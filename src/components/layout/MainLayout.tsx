@@ -7,14 +7,13 @@ const MainLayout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-background transition-colors duration-200">
+    <div className="flex min-h-screen min-w-[768px] bg-background">
       <SideBar isCollapsed={isCollapsed} toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
-      <div className="relative flex min-w-0 flex-1 flex-col transition-all duration-300">
+      <div className="relative flex min-w-0 flex-1 flex-col">
         <Header />
-        <main className="flex-grow overflow-auto bg-muted/30 p-6">
+        <main className="flex-grow overflow-auto bg-muted/30 p-4 md:p-6">
           <Outlet />
         </main>
-        {/* <Footer /> */}
       </div>
     </div>
   );

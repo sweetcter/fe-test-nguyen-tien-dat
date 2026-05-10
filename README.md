@@ -1,73 +1,91 @@
-# React + TypeScript + Vite
+# Task Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Một ứng dụng quản lý công việc toàn diện, được thiết kế với giao diện hiện đại, tối ưu trải nghiệm người dùng (UX) và hỗ trợ đầy đủ các tính năng cần thiết cho việc theo dõi tiến độ công việc.
 
-Currently, two official plugins are available:
+## 🚀 Tính Năng Nổi Bật
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. Dashboard Thống Kê
+- **Tổng quan nhanh**: Hiển thị tổng số lượng task và phân loại theo trạng thái (Cần làm, Đang làm, Hoàn thành).
+- **Trực quan hóa**: Biểu đồ/Thanh tiến độ (Progress bar) thể hiện tỷ lệ hoàn thành công việc.
+- **Truy cập nhanh**: Hiển thị danh sách 5 công việc được tạo gần đây nhất.
 
-## React Compiler
+### 2. Quản Lý Task Toàn Diện (CRUD)
+- **Thêm/Sửa Task**: Modal form thân thiện, tự động điền dữ liệu khi chỉnh sửa, validate dữ liệu chặt chẽ.
+- **Xóa Task**: Hỗ trợ xóa đơn lẻ và xóa hàng loạt (Bulk delete) với hộp thoại xác nhận an toàn.
+- **Cập nhật nhanh**: Thay đổi trạng thái task trực tiếp ngay trên bảng (Inline edit) mà không cần mở form.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 3. Tìm Kiếm & Lọc Nâng Cao
+- Tìm kiếm theo tiêu đề công việc.
+- Lọc theo nhiều tiêu chí: Trạng thái, Độ ưu tiên, Khoảng thời gian (Hạn chót).
+- Trạng thái bộ lọc và phân trang được đồng bộ hóa với URL, cho phép chia sẻ link hoặc tải lại trang mà không mất kết quả đang xem.
+- Dữ liệu luôn được sắp xếp thông minh (Task mới nhất ưu tiên hiển thị trước).
 
-## Expanding the ESLint configuration
+### 4. Giao Diện Hiện Đại & Tối Ưu UX
+- **Chế độ Sáng/Tối (Dark/Light Mode)**: Chuyển đổi mượt mà, đồng bộ hoàn hảo giữa Tailwind CSS và các component của Ant Design.
+- **Responsive**: Giao diện được tối ưu hiển thị tốt trên cả màn hình Desktop và Tablet.
+- **Fake Loading**: Hiệu ứng chuyển cảnh mượt mà khi chuyển trang hoặc thay đổi bộ lọc, mang lại cảm giác ứng dụng chuyên nghiệp.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 5. Lưu Trữ Dữ Liệu (Caching)
+- Sử dụng `redux-persist` để lưu trữ dữ liệu cục bộ. Các task, bộ lọc, và vị trí trang của bạn sẽ được giữ nguyên ngay cả khi bạn tải lại ứng dụng.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📸 Demo & Screenshots
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+> Hình ảnh và GIF demo sẽ được cập nhật tại đây.
+
+### Link deploy fe
+[Xem bản Live Demo tại đây](https://your-deploy-url.com)
+### Dashboard
+![Dashboard Demo](./src/assets/imgs/Dashboard.png)
+
+### Task List & Filter
+![Task List all](./src/assets/imgs/allTask.png)
+![Task List Filter](./src/assets/imgs/filteredTask.png)
+
+### Thêm Mới / Chỉnh Sửa Task
+![Task Form create](./src/assets/imgs/create.png)
+![Task Form Edit](./src/assets/imgs/Edit.png)
+
+### Dark Mode
+![Dark Mode Demo](./src/assets/imgs/Darkmode.png)
+![Light Mode Demo](./src/assets/imgs/lightMode.png)
+
+---
+
+## 🛠 Công Nghệ Sử Dụng
+
+- **Core**: React 18, TypeScript, Vite
+- **UI Framework/Styling**: Tailwind CSS, Ant Design (AntD)
+- **State Management**: Redux Toolkit, Redux Persist
+- **Routing**: React Router DOM (xử lý routing trong react)
+- **Khác**: Day.js (xử lý thời gian)
+
+---
+
+## 📦 Cài Đặt & Chạy Ứng Dụng
+
+Ứng dụng sử dụng **Yarn** (PnP) làm trình quản lý gói. Đảm bảo bạn đã cài đặt Node.js và Yarn trên máy.
+
+### 1. Clone repository
+```bash
+git clone <repository-url>
+cd app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Cài đặt dependencies
+```bash
+yarn install
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 3. Chạy môi trường phát triển (Development)
+```bash
+yarn dev
+```
+Ứng dụng sẽ chạy tại địa chỉ: `http://localhost:5173` (hoặc port khác tùy Vite hiển thị).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 4. Build cho Production (Tùy chọn)
+```bash
+yarn build
+yarn preview
 ```

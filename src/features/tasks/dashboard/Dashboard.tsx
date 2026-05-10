@@ -124,7 +124,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-full flex-col gap-5 overflow-auto">
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         {STAT_CARDS.map((card) => (
           <div
             key={card.key}
@@ -146,7 +146,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card
           title={<span className="font-semibold">Tỷ lệ trạng thái</span>}
           className="lg:col-span-1"
