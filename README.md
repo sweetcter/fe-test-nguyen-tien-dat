@@ -35,7 +35,7 @@ Một ứng dụng quản lý công việc toàn diện, được thiết kế v
 > Hình ảnh và GIF demo sẽ được cập nhật tại đây.
 
 ### Link deploy fe
-[Xem bản Live Demo tại đây](https://your-deploy-url.com)
+[Xem bản Live Demo tại đây](https://fe-test-nguyen-tien-dat.vercel.app/dashboard)
 ### Dashboard
 ![Dashboard Demo](./src/assets/imgs/Dashboard.png)
 
