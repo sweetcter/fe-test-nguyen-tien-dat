@@ -68,5 +68,27 @@ export const selectTasks = createSelector(
 );
 
 export const selectTaskStats = createSelector([selectItems], (items) => {
-  return {};
+  const total = items.length;
+  const todo = items.filter((t) => t.status === 'todo').length;
+  const in_progress = items.filter((t) => t.status === 'in_progress').length;
+  const done = items.filter((t) => t.status === 'done').length;
+
+  return {
+    total,
+    todo,
+    in_progress,
+    done,
+    percents: {
+      todo: total > 0 ? Math.round((todo / total) * 100) : 0,
+      in_progress: total > 0 ? Math.round((in_progress / total) * 100) : 0,
+      done: total > 0 ? Math.round((done / total) * 100) : 0,
+    },
+  };
 });
+
+export const selectRecentTasks = createSelector([selectItems], (items) =>
+  [...items]
+    .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
+    .slice(0, 5)
+);
+
