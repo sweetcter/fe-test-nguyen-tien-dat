@@ -9,6 +9,7 @@ type TasksState = {
     currentPage: number;
     pageSize: number;
   };
+  selectedIds: string[];
 };
 
 const initialState: TasksState = {
@@ -23,6 +24,7 @@ const initialState: TasksState = {
     currentPage: 1,
     pageSize: 10,
   },
+  selectedIds: [],
 };
 
 const tasksSlice = createSlice({
@@ -52,6 +54,7 @@ const tasksSlice = createSlice({
       return {
         ...state,
         items: state.items.filter((t) => t.id !== action.payload),
+        selectedIds: state.selectedIds.filter((id) => id !== action.payload),
       };
     },
     deleteManyTasks: (state, action: PayloadAction<string[]>) => {
@@ -59,7 +62,29 @@ const tasksSlice = createSlice({
       return {
         ...state,
         items: state.items.filter((t) => !payload.includes(t.id)),
+        selectedIds: state.selectedIds.filter((id) => !payload.includes(id)),
       };
+    },
+    toggleSelectTask: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      const idx = state.selectedIds.indexOf(id);
+      if (idx === -1) {
+        state.selectedIds.push(id);
+      } else {
+        state.selectedIds.splice(idx, 1);
+      }
+    },
+    toggleSelectAll: (state, action: PayloadAction<{ ids: string[]; checked: boolean }>) => {
+      const { ids, checked } = action.payload;
+      if (checked) {
+        const newIds = ids.filter((id) => !state.selectedIds.includes(id));
+        state.selectedIds.push(...newIds);
+      } else {
+        state.selectedIds = state.selectedIds.filter((id) => !ids.includes(id));
+      }
+    },
+    clearSelection: (state) => {
+      state.selectedIds = [];
     },
     updateTaskStatus: (state, action: PayloadAction<{ id: string; status: TaskStatus }>) => {
       const payload = action.payload;
@@ -100,6 +125,9 @@ export const {
   updateTask,
   deleteTask,
   deleteManyTasks,
+  toggleSelectTask,
+  toggleSelectAll,
+  clearSelection,
   updateTaskStatus,
   setFilter,
   resetFilters,

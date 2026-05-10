@@ -6,6 +6,7 @@ export const selectTasksState = (state: RootState) => state.tasks;
 export const selectItems = (state: RootState) => state.tasks.items;
 export const selectFilters = (state: RootState) => state.tasks.filters;
 export const selectPagination = (state: RootState) => state.tasks.pagination;
+export const selectSelectedIds = (state: RootState) => state.tasks.selectedIds;
 
 export const selectAllTasks = createSelector([selectItems], (items) => items);
 
