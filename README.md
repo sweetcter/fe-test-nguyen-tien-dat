@@ -69,7 +69,7 @@ Một ứng dụng quản lý công việc toàn diện, được thiết kế v
 
 ### 1. Clone repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/sweetcter/fe-test-nguyen-tien-dat.git
 cd app
 ```
 
